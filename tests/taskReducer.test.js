@@ -99,3 +99,53 @@ test('storage service safely reads, writes, and removes browser values', () => {
     else globalThis.window = previousWindow;
   }
 });
+
+
+test('reorders visible active tasks without moving hidden completed tasks', () => {
+  const a = make('Active A');
+  const done = { ...make('Completed'), completed: true };
+  const b = make('Active B');
+  const c = make('Active C');
+  const original = [a, done, b, c];
+
+  const result = taskReducer(original, {
+    type: TASK_ACTIONS.REORDER,
+    payload: { activeId: c.id, overId: a.id, visibleIds: [a.id, b.id, c.id] },
+  });
+
+  assert.deepEqual(result.map((task) => task.title), [
+    'Active C', 'Completed', 'Active A', 'Active B',
+  ]);
+  assert.equal(result[1], done);
+  assert.equal(original[0], a);
+});
+
+test('reorders completed tasks while leaving active tasks in place', () => {
+  const a = make('Active A');
+  const x = { ...make('Done X'), completed: true };
+  const b = make('Active B');
+  const y = { ...make('Done Y'), completed: true };
+
+  const result = taskReducer([a, x, b, y], {
+    type: TASK_ACTIONS.REORDER,
+    payload: { activeId: y.id, overId: x.id, visibleIds: [x.id, y.id] },
+  });
+
+  assert.deepEqual(result.map((task) => task.title), [
+    'Active A', 'Done Y', 'Active B', 'Done X',
+  ]);
+});
+
+test('ignores stale or invalid visible reorder lists', () => {
+  const a = make('A');
+  const b = make('B');
+  const state = [a, b];
+
+  for (const visibleIds of [[b.id, a.id], [a.id, a.id], [a.id, 'missing']]) {
+    const result = taskReducer(state, {
+      type: TASK_ACTIONS.REORDER,
+      payload: { activeId: a.id, overId: b.id, visibleIds },
+    });
+    assert.equal(result, state);
+  }
+});

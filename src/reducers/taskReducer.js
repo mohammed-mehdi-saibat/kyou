@@ -60,15 +60,29 @@ export function taskReducer(state, action) {
       ));
 
     case TASK_ACTIONS.REORDER: {
-      const { activeId, overId } = action.payload ?? {};
-      const from = state.findIndex((task) => task.id === activeId);
-      const to = state.findIndex((task) => task.id === overId);
+      const { activeId, overId, visibleIds } = action.payload ?? {};
+      // With a filtered list, move only visible tasks between their own slots.
+      // Hidden tasks must keep both their positions and relative order.
+      const ids = visibleIds ?? state.map((task) => task.id);
+      if (!Array.isArray(ids) || new Set(ids).size !== ids.length) return state;
+
+      const visibleSet = new Set(ids);
+      const visibleTasks = state.filter((task) => visibleSet.has(task.id));
+      if (visibleTasks.length !== ids.length) return state;
+      if (visibleTasks.some((task, index) => task.id !== ids[index])) return state;
+
+      const from = visibleTasks.findIndex((task) => task.id === activeId);
+      const to = visibleTasks.findIndex((task) => task.id === overId);
       if (from === -1 || to === -1 || from === to) return state;
 
-      const reordered = [...state];
+      const reordered = [...visibleTasks];
       const [moved] = reordered.splice(from, 1);
       reordered.splice(to, 0, moved);
-      return reordered;
+
+      let nextVisible = 0;
+      return state.map((task) => (
+        visibleSet.has(task.id) ? reordered[nextVisible++] : task
+      ));
     }
 
     default:

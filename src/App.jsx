@@ -13,7 +13,7 @@ const EMPTY_MESSAGES = {
 };
 
 export default function App() {
-  const { tasks, activeCount, addTask, updateTask, deleteTask, toggleTask } = useTasks();
+  const { tasks, activeCount, addTask, updateTask, deleteTask, toggleTask, reorderTasks } = useTasks();
   const [filter, setFilter] = useState('all');
 
   const visibleTasks = tasks.filter((task) => {
@@ -46,6 +46,7 @@ export default function App() {
             onToggleTask={toggleTask}
             onUpdateTask={updateTask}
             onDeleteTask={deleteTask}
+            onReorderTasks={reorderTasks}
           />
         </div>
       </main>

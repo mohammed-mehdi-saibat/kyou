@@ -41,8 +41,8 @@ export function TaskProvider({ children }) {
     });
   }, []);
 
-  const reorderTasks = useCallback((activeId, overId) => {
-    dispatch({ type: TASK_ACTIONS.REORDER, payload: { activeId, overId } });
+  const reorderTasks = useCallback((activeId, overId, visibleIds) => {
+    dispatch({ type: TASK_ACTIONS.REORDER, payload: { activeId, overId, visibleIds } });
   }, []);
 
   const activeCount = tasks.filter((task) => !task.completed).length;

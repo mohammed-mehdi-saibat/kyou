@@ -1,8 +1,10 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import GripIcon from '../icons/GripIcon.jsx';
 import { formatDueDate, isOverdue } from '../../utils/dates.js';
 import styles from './TaskItem.module.css';
 
-export default function TaskItem({ task, onToggleTask, onUpdateTask, onDeleteTask }) {
+export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask, onDeleteTask }) {
   const [isEditing, setIsEditing] = useState(false);
   const [draftTitle, setDraftTitle] = useState(task.title);
   const [draftDueDate, setDraftDueDate] = useState(task.dueDate ?? '');
@@ -10,6 +12,23 @@ export default function TaskItem({ task, onToggleTask, onUpdateTask, onDeleteTas
   const inputRef = useRef(null);
   const checkboxId = useId();
   const editId = useId();
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: task.id, disabled: isEditing || !canReorder });
+
+  // @dnd-kit calculates movement; CSS Modules control all visual styling.
+  const sortableStyle = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0) scaleX(${transform.scaleX ?? 1}) scaleY(${transform.scaleY ?? 1})`
+      : undefined,
+    transition,
+  };
 
   useEffect(() => {
     if (isEditing) {
@@ -45,7 +64,11 @@ export default function TaskItem({ task, onToggleTask, onUpdateTask, onDeleteTas
   const overdue = !task.completed && isOverdue(task.dueDate);
 
   return (
-    <li className={`${styles.item} ${task.completed ? styles.completed : ''}`}>
+    <li
+      ref={setNodeRef}
+      style={sortableStyle}
+      className={`${styles.item} ${task.completed ? styles.completed : ''} ${isDragging ? styles.dragging : ''}`}
+    >
       {isEditing ? (
         <form className={styles.editForm} onSubmit={saveEditing}>
           <div className={styles.editFields}>
@@ -139,6 +162,19 @@ export default function TaskItem({ task, onToggleTask, onUpdateTask, onDeleteTas
               Delete
             </button>
           </div>
+          {canReorder && (
+            <button
+              ref={setActivatorNodeRef}
+              className={styles.dragHandle}
+              type="button"
+              aria-label={`Reorder: ${task.title}`}
+              title="Drag to reorder"
+              {...attributes}
+              {...listeners}
+            >
+              <GripIcon />
+            </button>
+          )}
         </>
       )}
     </li>
