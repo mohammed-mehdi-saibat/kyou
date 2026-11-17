@@ -1,6 +1,9 @@
+import { useTasks } from './hooks/useTasks.js';
 import styles from './App.module.css';
 
 export default function App() {
+  const { tasks, activeCount } = useTasks();
+
   return (
     <div className={styles.page}>
       <header className={styles.header}>
@@ -11,19 +14,18 @@ export default function App() {
           <span className={styles.englishTitle}>Today</span>
         </h1>
 
-        <p className={styles.subtitle}>
-          A little room for what matters.
-        </p>
+        <p className={styles.subtitle}>A little room for what matters.</p>
       </header>
 
       <main className={styles.content}>
         <section className={styles.card} aria-labelledby="preview-title">
-          <p className={styles.cardLabel}>Design foundation</p>
-          <h2 className={styles.cardTitle} id="preview-title">
-            Make space for your day.
-          </h2>
+          <p className={styles.cardLabel}>State foundation</p>
+          <h2 className={styles.cardTitle} id="preview-title">Your tasks have a home.</h2>
           <p className={styles.cardDescription}>
-            Your tasks will appear here as we build the app, one thoughtful step at a time.
+            {activeCount} active tasks · {tasks.length} total saved
+          </p>
+          <p className={styles.cardDescription}>
+            Task controls and the task list arrive in Step 5.
           </p>
           <hr className={styles.accentRule} aria-hidden="true" />
         </section>
