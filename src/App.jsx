@@ -12,6 +12,7 @@ export default function App() {
   const { tasks, activeCount, addTask, updateTask, deleteTask, toggleTask, reorderTasks } = useTasks();
   const [filter, setFilter] = useState('all');
 
+  // Filtering changes the view, never the stored task array.
   const visibleTasks = tasks.filter((task) => {
     if (filter === 'active') return !task.completed;
     if (filter === 'completed') return task.completed;
@@ -19,43 +20,46 @@ export default function App() {
   });
 
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.headerTop}>
-          <p className={styles.eyebrow}>A quieter way to organize</p>
-          <ThemeToggle />
-        </div>
-        <div className={styles.brand}>
-          <h1 className={styles.heading}>
-            <span className={styles.japaneseTitle} lang="ja">今日</span>
-            <span className={styles.englishTitle}>Today</span>
-          </h1>
-          <p className={styles.subtitle}>A little room for what matters.</p>
-        </div>
-        <div className={styles.motif} aria-hidden="true">
-          <EnsoIcon />
-        </div>
-      </header>
-
-      <main className={styles.content}>
-        <TaskForm onAddTask={addTask} />
-        <div className={styles.listSection}>
-          <div className={styles.toolbar}>
-            <FilterBar value={filter} onChange={setFilter} />
-            <TaskCounter remaining={activeCount} />
+    <>
+      <a className={styles.skipLink} href="#main-content">Skip to tasks</a>
+      <div className={styles.page}>
+        <header className={styles.header}>
+          <div className={styles.headerTop}>
+            <p className={styles.eyebrow}>A quieter way to organize</p>
+            <ThemeToggle />
           </div>
-          <TaskList
-            tasks={visibleTasks}
-            filter={filter}
-            onToggleTask={toggleTask}
-            onUpdateTask={updateTask}
-            onDeleteTask={deleteTask}
-            onReorderTasks={reorderTasks}
-          />
-        </div>
-      </main>
+          <div className={styles.brand}>
+            <h1 className={styles.heading}>
+              <span className={styles.japaneseTitle} lang="ja">今日</span>
+              <span className={styles.englishTitle}>Today</span>
+            </h1>
+            <p className={styles.subtitle}>A little room for what matters.</p>
+          </div>
+          <div className={styles.motif} aria-hidden="true">
+            <EnsoIcon />
+          </div>
+        </header>
 
-      <footer className={styles.footer}>Built for quieter days.</footer>
-    </div>
+        <main id="main-content" className={styles.content} tabIndex={-1}>
+          <TaskForm onAddTask={addTask} />
+          <div className={styles.listSection}>
+            <div className={styles.toolbar}>
+              <FilterBar value={filter} onChange={setFilter} />
+              <TaskCounter remaining={activeCount} />
+            </div>
+            <TaskList
+              tasks={visibleTasks}
+              filter={filter}
+              onToggleTask={toggleTask}
+              onUpdateTask={updateTask}
+              onDeleteTask={deleteTask}
+              onReorderTasks={reorderTasks}
+            />
+          </div>
+        </main>
+
+        <footer className={styles.footer}>Built for quieter days.</footer>
+      </div>
+    </>
   );
 }

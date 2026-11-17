@@ -44,7 +44,7 @@
 }
 
 .autoButton {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   padding: var(--space-2);
   border: 0;
   border-radius: var(--radius-sm);
@@ -54,18 +54,9 @@
   text-underline-offset: 3px;
 }
 
-.autoButton:hover {
-  color: var(--color-ai);
-}
+.autoButton:hover { color: var(--color-ai); }
 
 @media (max-width: 420px) {
-  .toggle span {
-    display: none;
-  }
-
-  .toggle {
-    width: 2.75rem;
-    justify-content: center;
-    padding: 0;
-  }
+  .toggle span { display: none; }
+  .toggle { width: 2.75rem; justify-content: center; padding: 0; }
 }

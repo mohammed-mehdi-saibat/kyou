@@ -31,7 +31,7 @@ export default function TaskList({
   function handleDragEnd({ active, over }) {
     if (!over || active.id === over.id) return;
 
-    // Pass only visible IDs. The reducer keeps filtered-out tasks in place.
+    // Only reorder the visible tasks; hidden tasks keep their positions.
     onReorderTasks(active.id, over.id, tasks.map((task) => task.id));
   }
 
@@ -41,6 +41,11 @@ export default function TaskList({
         <h2 className={styles.heading} id="tasks-heading">Your tasks</h2>
         <span className={styles.rule} aria-hidden="true" />
       </div>
+
+      {/* Announces filter changes without creating a second visible counter. */}
+      <p className={styles.srOnly} role="status" aria-live="polite" aria-atomic="true">
+        Showing {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'} in the {filter} view.
+      </p>
 
       {tasks.length === 0 ? (
         <EmptyState filter={filter} />

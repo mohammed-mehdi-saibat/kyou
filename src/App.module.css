@@ -1,27 +1,46 @@
+/* Visible only to keyboard users; jumps past the header controls. */
+.skipLink {
+  position: fixed;
+  z-index: 100;
+  top: var(--space-3);
+  left: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--color-focus);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  transform: translateY(calc(-100% - 2rem));
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}
+
 .page {
+  display: flex;
+  flex-direction: column;
   width: min(100%, var(--content-width));
   min-height: 100vh;
   margin-inline: auto;
-  padding: clamp(2.5rem, 7vw, 5rem) clamp(1.25rem, 5vw, 3rem) var(--space-8);
-  display: flex;
-  flex-direction: column;
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 5vw, 3rem) var(--space-8);
 }
 
 .header {
   position: relative;
+  isolation: isolate;
   padding-bottom: var(--space-12);
   border-bottom: 1px solid var(--color-border);
-  isolation: isolate;
 }
 
 .headerTop {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
 .eyebrow {
@@ -44,7 +63,7 @@
   flex-wrap: wrap;
   gap: var(--space-4);
   margin-top: var(--space-6);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .japaneseTitle {
@@ -71,8 +90,8 @@
 .motif {
   position: absolute;
   z-index: 0;
-  right: clamp(0rem, 5vw, 3rem);
   top: clamp(2.5rem, 6vw, 4.5rem);
+  right: clamp(0rem, 5vw, 3rem);
   width: clamp(10rem, 24vw, 16.5rem);
   color: var(--color-motif);
   transform: rotate(-12deg);
@@ -87,7 +106,7 @@
 
 .content {
   flex: 1;
-  padding-top: clamp(3rem, 8vw, 5rem);
+  padding-top: clamp(2.5rem, 7vw, 5rem);
 }
 
 .listSection {
@@ -118,10 +137,17 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .header { padding-bottom: var(--space-8); }
   .subtitle { font-size: var(--text-base); }
-  .content { padding-top: var(--space-12); }
-  .listSection { margin-top: var(--space-8); }
-  .motif { width: 9rem; right: 0; top: 5rem; }
+  .listSection { margin-top: var(--space-8); gap: var(--space-6); }
+  .motif { width: clamp(7rem, 28vw, 10rem); right: 0; top: 5rem; }
+}
+
+@media (max-width: 420px) {
+  .headerTop { align-items: flex-start; }
+  .eyebrow { max-width: 13rem; line-height: 1.5; }
+  .heading { gap: var(--space-2); }
+  .toolbar { align-items: flex-start; flex-direction: column; }
+  .footer { margin-top: var(--space-12); }
 }

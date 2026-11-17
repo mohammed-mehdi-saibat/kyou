@@ -10,6 +10,8 @@ export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask,
   const [draftDueDate, setDraftDueDate] = useState(task.dueDate ?? '');
   const [draftCategory, setDraftCategory] = useState(task.category ?? '');
   const inputRef = useRef(null);
+  const editButtonRef = useRef(null);
+  const wasEditingRef = useRef(false);
   const checkboxId = useId();
   const editId = useId();
   const {
@@ -34,7 +36,11 @@ export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask,
     if (isEditing) {
       inputRef.current?.focus();
       inputRef.current?.select();
+    } else if (wasEditingRef.current) {
+      // Return focus to the Edit button after saving or cancelling.
+      editButtonRef.current?.focus();
     }
+    wasEditingRef.current = isEditing;
   }, [isEditing]);
 
   function beginEditing() {
@@ -119,14 +125,17 @@ export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask,
       ) : (
         <>
           <div className={styles.taskMain}>
-            <input
-              id={checkboxId}
-              className={styles.checkbox}
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => onToggleTask(task.id)}
-              aria-label={`${task.completed ? 'Mark as active' : 'Complete'}: ${task.title}`}
-            />
+            <label className={styles.checkControl} htmlFor={checkboxId}>
+              <input
+                id={checkboxId}
+                className={styles.checkbox}
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => onToggleTask(task.id)}
+                aria-label={`${task.completed ? 'Mark as active' : 'Complete'}: ${task.title}`}
+              />
+              <span className={styles.checkVisual} aria-hidden="true" />
+            </label>
             <div className={styles.taskDetails}>
               <label className={styles.title} htmlFor={checkboxId}>{task.title}</label>
               {(task.category || task.dueDate) && (
@@ -146,6 +155,7 @@ export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask,
           </div>
           <div className={styles.actions}>
             <button
+              ref={editButtonRef}
               className={styles.actionButton}
               type="button"
               onClick={beginEditing}
@@ -167,10 +177,10 @@ export default function TaskItem({ task, canReorder, onToggleTask, onUpdateTask,
               ref={setActivatorNodeRef}
               className={styles.dragHandle}
               type="button"
-              aria-label={`Reorder: ${task.title}`}
               title="Drag to reorder"
               {...attributes}
               {...listeners}
+              aria-label={`Reorder: ${task.title}`}
             >
               <GripIcon />
             </button>
