@@ -1,5 +1,5 @@
 {
-  "name": "kyou",
+  "name": "kyou-todo-app",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -15,4 +15,4 @@
   "devDependencies": {
     "vite": "^8.3.8"
   }
-} 
+}

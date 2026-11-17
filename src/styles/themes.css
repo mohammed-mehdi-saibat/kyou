@@ -1,0 +1,56 @@
+/* Default: warm washi paper, ink, indigo, and sakura. */
+:root,
+:root[data-theme='light'] {
+  color-scheme: light;
+  --color-paper: #f7f5ef;
+  --color-surface: #fffdfa;
+  --color-ink: #242a30;
+  --color-ink-muted: #686d70;
+  --color-ai: #374e6a;
+  --color-ai-hover: #253d59;
+  --color-sakura: #e7ccd5;
+  --color-sakura-ink: #81546b;
+  --color-border: #dedbd3;
+  --color-focus: #2c5c92;
+  --color-paper-fiber: rgba(86, 75, 64, 0.018);
+  --color-paper-glow: rgba(255, 255, 255, 0.48);
+  --shadow-soft: 0 12px 40px rgba(41, 39, 34, 0.045);
+}
+
+/* Later, ThemeContext can apply data-theme="dark" manually. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: #181c22;
+  --color-surface: #222831;
+  --color-ink: #f0ede6;
+  --color-ink-muted: #b4bac1;
+  --color-ai: #aec4df;
+  --color-ai-hover: #d0dded;
+  --color-sakura: #553c4a;
+  --color-sakura-ink: #eec5d7;
+  --color-border: #3a414b;
+  --color-focus: #aec4df;
+  --color-paper-fiber: rgba(240, 235, 224, 0.013);
+  --color-paper-glow: rgba(255, 255, 255, 0.022);
+  --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.16);
+}
+
+/* No saved manual choice yet: follow the operating system. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-paper: #181c22;
+    --color-surface: #222831;
+    --color-ink: #f0ede6;
+    --color-ink-muted: #b4bac1;
+    --color-ai: #aec4df;
+    --color-ai-hover: #d0dded;
+    --color-sakura: #553c4a;
+    --color-sakura-ink: #eec5d7;
+    --color-border: #3a414b;
+    --color-focus: #aec4df;
+    --color-paper-fiber: rgba(240, 235, 224, 0.013);
+    --color-paper-glow: rgba(255, 255, 255, 0.022);
+    --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.16);
+  }
+}
