@@ -56,7 +56,17 @@
 }
 
 .listSection {
+  display: grid;
+  gap: var(--space-8);
   margin-top: var(--space-12);
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 .footer {
