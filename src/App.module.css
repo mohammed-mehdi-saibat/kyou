@@ -12,8 +12,7 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-.eyebrow,
-.cardLabel {
+.eyebrow {
   color: var(--color-ink-muted);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -56,39 +55,8 @@
   padding-top: clamp(3rem, 8vw, 5rem);
 }
 
-.card {
-  padding: clamp(1.5rem, 5vw, 3rem);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-soft);
-}
-
-.cardLabel {
-  color: var(--color-sakura-ink);
-}
-
-.cardTitle {
-  margin-top: var(--space-6);
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  font-weight: 400;
-  line-height: 1.25;
-}
-
-.cardDescription {
-  max-width: 38ch;
-  margin-top: var(--space-4);
-  color: var(--color-ink-muted);
-}
-
-.accentRule {
-  width: 3rem;
-  height: 2px;
-  margin-top: var(--space-8);
-  border: 0;
-  border-radius: 10px;
-  background: var(--color-ai);
+.listSection {
+  margin-top: var(--space-12);
 }
 
 .footer {
@@ -111,5 +79,9 @@
 
   .content {
     padding-top: var(--space-12);
+  }
+
+  .listSection {
+    margin-top: var(--space-8);
   }
 }

@@ -1,0 +1,80 @@
+.form {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.label {
+  color: var(--color-ink-muted);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+  transition: border-color var(--duration-normal) var(--ease-soft);
+}
+
+.controls:focus-within {
+  border-color: var(--color-ai);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-3);
+  border: 0;
+  outline: 0;
+  color: var(--color-ink);
+  background: transparent;
+}
+
+.input::placeholder {
+  color: var(--color-ink-muted);
+  opacity: 0.85;
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+.addButton {
+  flex-shrink: 0;
+  padding: var(--space-3) var(--space-6);
+  border: 0;
+  border-radius: var(--radius-sm);
+  color: var(--color-paper);
+  background: var(--color-ai);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: background var(--duration-normal) var(--ease-soft);
+}
+
+.addButton:hover:not(:disabled) {
+  background: var(--color-ai-hover);
+}
+
+.addButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+}
