@@ -1,9 +1,10 @@
-/* Default: warm washi paper, ink, indigo, and sakura. */
+/* Semantic colors keep every component independent of the active theme. */
 :root,
 :root[data-theme='light'] {
   color-scheme: light;
   --color-paper: #f7f5ef;
   --color-surface: #fffdfa;
+  --color-complete-surface: #fdf4f6;
   --color-ink: #242a30;
   --color-ink-muted: #686d70;
   --color-ai: #374e6a;
@@ -13,15 +14,19 @@
   --color-border: #dedbd3;
   --color-focus: #2c5c92;
   --color-paper-fiber: rgba(86, 75, 64, 0.018);
-  --color-paper-glow: rgba(255, 255, 255, 0.48);
-  --shadow-soft: 0 12px 40px rgba(41, 39, 34, 0.045);
+  --color-paper-line: rgba(86, 75, 64, 0.006);
+  --color-paper-glow: rgba(255, 255, 255, 0.45);
+  --color-glow-indigo: rgba(95, 123, 153, 0.11);
+  --color-glow-sakura: rgba(215, 165, 185, 0.13);
+  --color-motif: rgba(55, 78, 106, 0.24);
+  --shadow-soft: 0 12px 40px rgba(41, 39, 34, 0.055);
 }
 
-/* Later, ThemeContext can apply data-theme="dark" manually. */
 :root[data-theme='dark'] {
   color-scheme: dark;
   --color-paper: #181c22;
   --color-surface: #222831;
+  --color-complete-surface: #302832;
   --color-ink: #f0ede6;
   --color-ink-muted: #b4bac1;
   --color-ai: #aec4df;
@@ -31,16 +36,21 @@
   --color-border: #3a414b;
   --color-focus: #aec4df;
   --color-paper-fiber: rgba(240, 235, 224, 0.013);
-  --color-paper-glow: rgba(255, 255, 255, 0.022);
-  --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.16);
+  --color-paper-line: rgba(240, 235, 224, 0.006);
+  --color-paper-glow: rgba(255, 255, 255, 0.02);
+  --color-glow-indigo: rgba(88, 128, 188, 0.11);
+  --color-glow-sakura: rgba(170, 90, 132, 0.08);
+  --color-motif: rgba(174, 196, 223, 0.18);
+  --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.18);
 }
 
-/* No saved manual choice yet: follow the operating system. */
+/* CSS-only fallback before React runs, including when JavaScript is disabled. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     color-scheme: dark;
     --color-paper: #181c22;
     --color-surface: #222831;
+    --color-complete-surface: #302832;
     --color-ink: #f0ede6;
     --color-ink-muted: #b4bac1;
     --color-ai: #aec4df;
@@ -50,7 +60,11 @@
     --color-border: #3a414b;
     --color-focus: #aec4df;
     --color-paper-fiber: rgba(240, 235, 224, 0.013);
-    --color-paper-glow: rgba(255, 255, 255, 0.022);
-    --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.16);
+    --color-paper-line: rgba(240, 235, 224, 0.006);
+    --color-paper-glow: rgba(255, 255, 255, 0.02);
+    --color-glow-indigo: rgba(88, 128, 188, 0.11);
+    --color-glow-sakura: rgba(170, 90, 132, 0.08);
+    --color-motif: rgba(174, 196, 223, 0.18);
+    --shadow-soft: 0 14px 42px rgba(0, 0, 0, 0.18);
   }
 }

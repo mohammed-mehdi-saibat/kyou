@@ -1,0 +1,48 @@
+.empty {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: var(--space-3);
+  min-height: 15rem;
+  padding: var(--space-12) var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--color-surface), var(--color-complete-surface));
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  animation: emptyAppear 380ms var(--ease-soft) both;
+}
+
+.japaneseAccent {
+  color: var(--color-sakura-ink);
+  font-family: var(--font-japanese);
+  font-size: var(--text-sm);
+  letter-spacing: 0.28em;
+}
+
+.title {
+  color: var(--color-ink);
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  font-weight: 400;
+}
+
+.description {
+  max-width: 34ch;
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+}
+
+.line {
+  width: 2.5rem;
+  height: 2px;
+  margin-top: var(--space-3);
+  border-radius: 1px;
+  background: var(--color-ai);
+  opacity: 0.7;
+}
+
+@keyframes emptyAppear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

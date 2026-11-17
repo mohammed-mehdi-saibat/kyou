@@ -14,47 +14,38 @@ body {
   min-height: 100vh;
   color: var(--color-ink);
   background-color: var(--color-paper);
+  /* The two gentle color washes and hairline fibers evoke layered washi. */
   background-image:
-    radial-gradient(ellipse at 20% 0%, var(--color-paper-glow), transparent 65%),
+    radial-gradient(ellipse 55% 55% at 8% 4%, var(--color-glow-indigo), transparent 95%),
+    radial-gradient(ellipse 50% 48% at 95% 16%, var(--color-glow-sakura), transparent 95%),
+    radial-gradient(ellipse at 50% -10%, var(--color-paper-glow), transparent 75%),
     repeating-linear-gradient(
       0deg,
       transparent 0,
-      transparent 6px,
-      var(--color-paper-fiber) 7px
+      transparent 12px,
+      var(--color-paper-fiber) 13px
     ),
     repeating-linear-gradient(
       90deg,
       transparent 0,
       transparent 8px,
-      var(--color-paper-fiber) 9px
+      var(--color-paper-line) 9px
     );
   font-family: var(--font-body);
   font-size: var(--text-base);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: color var(--duration-normal) var(--ease-soft),
+    background-color var(--duration-normal) var(--ease-soft);
 }
 
-#root {
-  min-height: 100vh;
-}
+#root { min-height: 100vh; }
 
-h1,
-h2,
-h3,
-p {
-  margin: 0;
-}
+h1, h2, h3, p { margin: 0; }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
+button, input, textarea, select { font: inherit; }
 
-button {
-  cursor: pointer;
-}
+button { cursor: pointer; }
 
 :focus-visible {
   outline: 2px solid var(--color-focus);
@@ -64,4 +55,14 @@ button {
 ::selection {
   background: var(--color-sakura);
   color: var(--color-ink);
+}
+
+/* Respect reduced-motion preferences from the moment animations are added. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -8,8 +8,20 @@
 }
 
 .header {
+  position: relative;
   padding-bottom: var(--space-12);
   border-bottom: 1px solid var(--color-border);
+  isolation: isolate;
+}
+
+.headerTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
 }
 
 .eyebrow {
@@ -18,6 +30,12 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+.brand {
+  position: relative;
+  z-index: 1;
+  animation: brandAppear 430ms var(--ease-soft) both;
 }
 
 .heading {
@@ -50,6 +68,23 @@
   font-size: var(--text-lg);
 }
 
+.motif {
+  position: absolute;
+  z-index: 0;
+  right: clamp(0rem, 5vw, 3rem);
+  top: clamp(2.5rem, 6vw, 4.5rem);
+  width: clamp(10rem, 24vw, 16.5rem);
+  color: var(--color-motif);
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.motif svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .content {
   flex: 1;
   padding-top: clamp(3rem, 8vw, 5rem);
@@ -78,20 +113,15 @@
   letter-spacing: 0.07em;
 }
 
+@keyframes brandAppear {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 480px) {
-  .header {
-    padding-bottom: var(--space-8);
-  }
-
-  .subtitle {
-    font-size: var(--text-base);
-  }
-
-  .content {
-    padding-top: var(--space-12);
-  }
-
-  .listSection {
-    margin-top: var(--space-8);
-  }
+  .header { padding-bottom: var(--space-8); }
+  .subtitle { font-size: var(--text-base); }
+  .content { padding-top: var(--space-12); }
+  .listSection { margin-top: var(--space-8); }
+  .motif { width: 9rem; right: 0; top: 5rem; }
 }

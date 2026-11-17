@@ -11,12 +11,13 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import EmptyState from '../EmptyState/EmptyState.jsx';
 import TaskItem from '../TaskItem/TaskItem.jsx';
 import styles from './TaskList.module.css';
 
 export default function TaskList({
   tasks,
-  emptyMessage = 'No tasks yet. Add one above to begin.',
+  filter = 'all',
   onToggleTask,
   onUpdateTask,
   onDeleteTask,
@@ -42,7 +43,7 @@ export default function TaskList({
       </div>
 
       {tasks.length === 0 ? (
-        <p className={styles.placeholder}>{emptyMessage}</p>
+        <EmptyState filter={filter} />
       ) : (
         <>
           {tasks.length > 1 && (

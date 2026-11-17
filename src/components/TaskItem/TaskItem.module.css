@@ -9,6 +9,10 @@
   border-radius: var(--radius-md);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
+  animation: taskAppear 260ms var(--ease-soft) both;
+  transition: border-color var(--duration-normal) var(--ease-soft),
+    background var(--duration-normal) var(--ease-soft),
+    box-shadow var(--duration-normal) var(--ease-soft);
 }
 
 .taskMain {
@@ -247,4 +251,17 @@
   .item {
     transition: none !important;
   }
+}
+
+.completed {
+  background: var(--color-complete-surface);
+}
+
+.item:hover:not(.dragging) {
+  border-color: var(--color-ai);
+}
+
+@keyframes taskAppear {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

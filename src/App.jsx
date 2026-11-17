@@ -1,16 +1,12 @@
 import { useState } from 'react';
+import EnsoIcon from './components/icons/EnsoIcon.jsx';
 import FilterBar from './components/FilterBar/FilterBar.jsx';
 import TaskCounter from './components/TaskCounter/TaskCounter.jsx';
 import TaskForm from './components/TaskForm/TaskForm.jsx';
 import TaskList from './components/TaskList/TaskList.jsx';
+import ThemeToggle from './components/ThemeToggle/ThemeToggle.jsx';
 import { useTasks } from './hooks/useTasks.js';
 import styles from './App.module.css';
-
-const EMPTY_MESSAGES = {
-  all: 'No tasks yet. Add one above to begin.',
-  active: 'No active tasks. Your day is clear.',
-  completed: 'No completed tasks yet.',
-};
 
 export default function App() {
   const { tasks, activeCount, addTask, updateTask, deleteTask, toggleTask, reorderTasks } = useTasks();
@@ -25,12 +21,20 @@ export default function App() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>A quieter way to organize</p>
-        <h1 className={styles.heading}>
-          <span className={styles.japaneseTitle} lang="ja">今日</span>
-          <span className={styles.englishTitle}>Today</span>
-        </h1>
-        <p className={styles.subtitle}>A little room for what matters.</p>
+        <div className={styles.headerTop}>
+          <p className={styles.eyebrow}>A quieter way to organize</p>
+          <ThemeToggle />
+        </div>
+        <div className={styles.brand}>
+          <h1 className={styles.heading}>
+            <span className={styles.japaneseTitle} lang="ja">今日</span>
+            <span className={styles.englishTitle}>Today</span>
+          </h1>
+          <p className={styles.subtitle}>A little room for what matters.</p>
+        </div>
+        <div className={styles.motif} aria-hidden="true">
+          <EnsoIcon />
+        </div>
       </header>
 
       <main className={styles.content}>
@@ -42,7 +46,7 @@ export default function App() {
           </div>
           <TaskList
             tasks={visibleTasks}
-            emptyMessage={EMPTY_MESSAGES[filter]}
+            filter={filter}
             onToggleTask={toggleTask}
             onUpdateTask={updateTask}
             onDeleteTask={deleteTask}
