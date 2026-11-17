@@ -186,6 +186,14 @@
   color: var(--color-ink);
 }
 
+/* Match the new subtle focus treatment when editing task details. */
+.editInput:focus-visible,
+.editField input:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-ai) 60%, var(--color-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ai) 10%, transparent);
+}
+
 .editMetadata {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

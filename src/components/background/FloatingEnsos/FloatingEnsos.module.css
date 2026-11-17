@@ -1,0 +1,37 @@
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  top: var(--enso-top);
+  left: -7rem;
+  width: var(--enso-size);
+  height: var(--enso-size);
+  color: var(--color-motif);
+  opacity: var(--enso-opacity);
+  animation: ensoDrift var(--enso-duration) linear infinite;
+  animation-delay: var(--enso-delay);
+  will-change: transform;
+}
+
+.icon {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Barely perceptible vertical drift; the horizontal journey is unhurried. */
+@keyframes ensoDrift {
+  0% { transform: translate3d(0, 8px, 0) rotate(-12deg); }
+  50% { transform: translate3d(calc(50vw + 7rem), -8px, 0) rotate(3deg); }
+  100% { transform: translate3d(calc(100vw + 14rem), 6px, 0) rotate(15deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene { display: none; }
+}

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import FloatingEnsos from './components/background/FloatingEnsos/FloatingEnsos.jsx';
+import CursorTrail from './components/background/CursorTrail/CursorTrail.jsx';
 import EnsoIcon from './components/icons/EnsoIcon.jsx';
 import FilterBar from './components/FilterBar/FilterBar.jsx';
 import TaskCounter from './components/TaskCounter/TaskCounter.jsx';
@@ -21,6 +23,8 @@ export default function App() {
 
   return (
     <>
+      <FloatingEnsos />
+      <CursorTrail />
       <a className={styles.skipLink} href="#main-content">Skip to tasks</a>
       <div className={styles.page}>
         <header className={styles.header}>
@@ -58,7 +62,19 @@ export default function App() {
           </div>
         </main>
 
-        <footer className={styles.footer}>Built for quieter days.</footer>
+        <footer className={styles.footer}>
+          <span className={styles.signature}>
+            <span>Made by <strong>MEHDI</strong></span>
+            <img
+              className={styles.signatureLogo}
+              src="/mehdi-logo.png"
+              alt=""
+              aria-hidden="true"
+              width="44"
+              height="40"
+            />
+          </span>
+        </footer>
       </div>
     </>
   );

@@ -17,10 +17,16 @@
   border-radius: var(--radius-md);
   background: var(--color-surface);
   box-shadow: var(--shadow-soft);
-  transition: border-color var(--duration-normal) var(--ease-soft);
+  transition: border-color var(--duration-normal) var(--ease-soft),
+    box-shadow var(--duration-normal) var(--ease-soft);
 }
 
-.controls:focus-within { border-color: var(--color-ai); }
+/* A quiet focus indication: a hairline border and barely visible halo. */
+.controls:focus-within {
+  border-color: color-mix(in srgb, var(--color-ai) 45%, var(--color-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ai) 8%, transparent),
+    var(--shadow-soft);
+}
 
 .input {
   flex: 1;
@@ -34,10 +40,9 @@
 
 .input::placeholder { color: var(--color-ink-muted); opacity: 0.85; }
 
+/* The outer form already marks focus, so avoid a second thick outline. */
 .input:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: -2px;
-  border-radius: var(--radius-sm);
+  outline: none;
 }
 
 .addButton {
@@ -80,6 +85,13 @@
   border-radius: var(--radius-sm);
   color: var(--color-ink);
   background: var(--color-surface);
+}
+
+/* Keep date and category field focus thin but keyboard-visible. */
+.fieldInput:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--color-ai) 60%, var(--color-border));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-ai) 10%, transparent);
 }
 
 .fieldInput::placeholder { color: var(--color-ink-muted); }
